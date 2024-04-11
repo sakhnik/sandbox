@@ -1,4 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
+import random
 
 
 def print_board(board):
@@ -41,10 +43,16 @@ def main():
 
     while True:
         print_board(board)
-        move = int(input("Your move (1-9): "))
-        row = 2 - (move - 1) // 3
-        col = (move - 1) % 3
-        print(f"row={row} col={col}")
+        key = input("Your move (1-9): ")
+        if key == '.':
+            possible_moves = [(row, col)
+                              for row in range(3) for col in range(3)
+                              if board[row][col] == ' ']
+            row, col = random.choice(possible_moves)
+        else:
+            move = int(key)
+            row = 2 - (move - 1) // 3
+            col = (move - 1) % 3
 
         if board[row][col] != " ":
             print("Cell already occupied. Try again.")
