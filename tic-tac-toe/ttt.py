@@ -58,12 +58,12 @@ def main():
             move = int(key)
             row = 2 - (move - 1) // 3
             col = (move - 1) % 3
-        history.append((get_board_str(board), (row, col)))
 
         if board[row][col] != " ":
             print("Cell already occupied. Try again.")
             continue
 
+        history.append((get_board_str(board), (row, col)))
         board[row][col] = current_player
 
         if check_win(board, current_player):
