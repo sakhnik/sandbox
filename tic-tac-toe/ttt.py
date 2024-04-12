@@ -35,15 +35,20 @@ def is_board_full(board):
     return True
 
 
+def get_board_str(board):
+    return "".join([cell for row in board for cell in row])
+
+
 def main():
     board = [[" " for _ in range(3)] for _ in range(3)]
     current_player = "X"
+    history = []
 
     print("Welcome to Tic Tac Toe!")
 
     while True:
         print_board(board)
-        key = input("Your move (1-9): ")
+        key = input(f"Your move {current_player} (1-9): ")
         if key == '.':
             possible_moves = [(row, col)
                               for row in range(3) for col in range(3)
@@ -53,6 +58,7 @@ def main():
             move = int(key)
             row = 2 - (move - 1) // 3
             col = (move - 1) % 3
+        history.append((get_board_str(board), (row, col)))
 
         if board[row][col] != " ":
             print("Cell already occupied. Try again.")
@@ -71,6 +77,8 @@ def main():
             break
 
         current_player = "O" if current_player == "X" else "X"
+
+    print(history)
 
 
 if __name__ == "__main__":
