@@ -39,10 +39,20 @@ def get_board_str(board):
     return "".join([cell for row in board for cell in row])
 
 
+def prune(strategy, history):
+    for i in range(-2, -len(history), -2):
+        position, move = history[i]
+        possible_moves = strategy.get(position)
+        possible_moves.remove(move)
+        if not possible_moves:
+            break
+
+
 def main():
     board = [[" " for _ in range(3)] for _ in range(3)]
     current_player = "X"
     history = []
+    strategy = {}
 
     print("Welcome to Tic Tac Toe!")
 
@@ -50,10 +60,14 @@ def main():
         print_board(board)
         key = input(f"Your move {current_player} (1-9): ")
         if key == '.':
-            possible_moves = [(row, col)
-                              for row in range(3) for col in range(3)
-                              if board[row][col] == ' ']
-            row, col = random.choice(possible_moves)
+            cur_board = get_board_str(board)
+            possible_moves = strategy.get(cur_board)
+            if not possible_moves:
+                possible_moves = {(row, col)
+                                  for row in range(3) for col in range(3)
+                                  if board[row][col] == ' '}
+                strategy[cur_board] = possible_moves
+            row, col = random.choice(list(possible_moves))
         else:
             move = int(key)
             row = 2 - (move - 1) // 3
@@ -78,7 +92,8 @@ def main():
 
         current_player = "O" if current_player == "X" else "X"
 
-    print(history)
+    if check_win(board, current_player):
+        prune(strategy, history)
 
 
 if __name__ == "__main__":
