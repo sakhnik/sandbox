@@ -45,7 +45,7 @@ def prune(strategy, history):
         possible_moves = strategy.get(position)
         if move in possible_moves:
             possible_moves.remove(move)
-        if not possible_moves:
+        if possible_moves:
             break
 
 
@@ -57,11 +57,13 @@ def test_match(strategy):
     while True:
         cur_board = get_board_str(board)
         possible_moves = strategy.get(cur_board)
-        if not possible_moves:
+        if possible_moves is None:
             possible_moves = {(row, col)
                               for row in range(3) for col in range(3)
                               if board[row][col] == ' '}
             strategy[cur_board] = possible_moves
+        if not possible_moves:
+            break
         row, col = random.choice(list(possible_moves))
 
         history.append((get_board_str(board), (row, col)))
@@ -99,11 +101,14 @@ def main():
             if key == '.' or key == ',':
                 cur_board = get_board_str(board)
                 possible_moves = strategy.get(cur_board)
-                if not possible_moves:
+                if possible_moves is None:
                     possible_moves = {(row, col)
                                       for row in range(3) for col in range(3)
                                       if board[row][col] == ' '}
                     strategy[cur_board] = possible_moves
+                if not possible_moves:
+                    print(f"Player {current_player} resigns")
+                    break
                 row, col = random.choice(list(possible_moves))
             else:
                 try:
