@@ -63,6 +63,7 @@ def test_match(strategy):
                               if board[row][col] == ' '}
             strategy[cur_board] = possible_moves
         if not possible_moves:
+            prune(strategy, history)
             break
         row, col = random.choice(list(possible_moves))
 
@@ -108,6 +109,7 @@ def main():
                     strategy[cur_board] = possible_moves
                 if not possible_moves:
                     print(f"Player {current_player} resigns")
+                    prune(strategy, history)
                     break
                 row, col = random.choice(list(possible_moves))
             else:
