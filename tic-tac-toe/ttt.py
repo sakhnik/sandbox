@@ -89,7 +89,7 @@ def test_match(strategy):
 def main():
     strategy = {}
 
-    for i in range(100000):
+    for i in range(10000):
         test_match(strategy)
 
     while True:
