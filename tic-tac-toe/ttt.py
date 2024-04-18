@@ -40,6 +40,7 @@ def get_board_str(board):
 
 
 def prune(strategy, history):
+    # Remove moves that led to defeat
     for i in range(-2, -len(history), -2):
         position, move = history[i]
         possible_moves = strategy.get(position)
@@ -47,6 +48,9 @@ def prune(strategy, history):
             possible_moves.remove(move)
         if possible_moves:
             break
+    # Encourage the move that led to victory
+    position, move = history[-1]
+    strategy[position] = {move}
 
 
 def test_match(strategy):
