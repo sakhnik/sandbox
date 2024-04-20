@@ -125,8 +125,12 @@ def main():
                     print("Incorrect move")
                     continue
 
-            if board[row][col] != " ":
-                print("Cell already occupied. Try again.")
+            try:
+                if board[row][col] != " ":
+                    print("Cell already occupied. Try again.")
+                    continue
+            except IndexError:
+                print("Incorrect move")
                 continue
 
             history.append((get_board_str(board), (row, col)))
