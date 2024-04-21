@@ -20,16 +20,16 @@ while true do
     end
 
     local bulls = 0
-    if digits[guess % 10] == 1 then bulls = bulls + 1 end
-    if digits[math.floor(guess / 10) % 10] == 1 then bulls = bulls + 1 end
-    if digits[math.floor(guess / 100) % 10] == 1 then bulls = bulls + 1 end
-    if digits[math.floor(guess / 1000)] == 1 then bulls = bulls + 1 end
+    if digits[guess % 10] == 1                      then bulls = bulls + 1 end
+    if digits[math.floor(guess / 10) % 10] == 1     then bulls = bulls + 1 end
+    if digits[math.floor(guess / 100) % 10] == 1    then bulls = bulls + 1 end
+    if digits[math.floor(guess / 1000)] == 1        then bulls = bulls + 1 end
 
     local cows = 0
     if number % 10 == guess % 10 then cows = cows + 1 end
-    if math.floor(number / 10) % 10 == math.floor(guess / 10) % 10 then cows = cows + 1 end
-    if math.floor(number / 100) % 10 == math.floor(guess / 100) % 10 then cows = cows + 1 end
-    if math.floor(number / 1000) == math.floor(guess / 1000) then cows = cows + 1 end
+    if math.floor(number / 10) % 10 == math.floor(guess / 10) % 10      then cows = cows + 1 end
+    if math.floor(number / 100) % 10 == math.floor(guess / 100) % 10    then cows = cows + 1 end
+    if math.floor(number / 1000) == math.floor(guess / 1000)            then cows = cows + 1 end
 
     print('bulls=' .. bulls .. ' cows=' .. cows)
 end
